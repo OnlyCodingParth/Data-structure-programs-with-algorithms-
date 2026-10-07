@@ -48,4 +48,13 @@ Array Updation- Algorithm
 9.     Print arr[i]
 10. End
 
+Time Complexity:
+Best Case    = O(1)
+Average Case = O(1)
+Worst Case   = O(1)
+
+Space Complexity:
+Best Case    = O(1)
+Average Case = O(1)
+Worst Case   = O(1)
 */

@@ -56,4 +56,13 @@ Array Sorting - Algorithm
 10.     Print arr[i]
 11. End
 
+Time Complexity:
+Best Case    = O(n^2)
+Average Case = O(n^2)
+Worst Case   = O(n^2)
+
+Space Complexity:
+Best Case    = O(1)
+Average Case = O(1)
+Worst Case   = O(1)
 */

@@ -59,4 +59,14 @@ Array Insertion- Algorithm
 12.     Print arr[i]
 13. End
 
+
+tIME Complexity:
+Best Case    = O(1)
+Average Case = O(n)
+Worst Case   = O(n)
+
+Space Complexity:
+Best Case    = O(1)
+Average Case = O(1)
+Worst Case   = O(1)
 */

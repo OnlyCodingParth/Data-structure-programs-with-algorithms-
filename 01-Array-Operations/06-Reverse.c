@@ -50,4 +50,13 @@ Array Reversal- Algorithm
 10.     Print arr[i]
 11. End
 
+Time Complexity:
+Best Case    = O(n)
+Average Case = O(n)
+Worst Case   = O(n)
+
+Space Complexity:
+Best Case    = O(1)
+Average Case = O(1)
+Worst Case   = O(1)
 */

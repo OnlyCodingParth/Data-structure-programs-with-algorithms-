@@ -68,4 +68,13 @@ Array Merging - Algorithm
 11.     Print arr3[i]
 12. End
 
+Time Complexity:
+Best Case    = O(n1 + n2)
+Average Case = O(n1 + n2)
+Worst Case   = O(n1 + n2)
+
+Space Complexity:
+Best Case    = O(n1 + n2)
+Average Case = O(n1 + n2)
+Worst Case   = O(n1 + n2)
 */
