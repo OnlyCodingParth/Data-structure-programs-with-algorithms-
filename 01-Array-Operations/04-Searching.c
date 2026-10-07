@@ -39,3 +39,24 @@ int main()
 
     return 0;
 }
+
+/*
+
+Array Searching - Algorithm
+
+1. Start
+2. Declare an array of size n
+3. Read the number of elements n
+4. Read the elements of the array
+5. Read the value to search
+6. For i = 0 to n-1 do
+7.     If arr[i] == value then
+8.         found = 1
+9.         Break
+10. If found == 1 then
+11.     Print "Value found at position i+1"
+12. Else
+13.     Print "Value not found in the array"
+14. End
+
+*/
