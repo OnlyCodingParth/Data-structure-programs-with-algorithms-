@@ -1,710 +1,1016 @@
-# Binary Tree - Complete Theory
+# Binary Tree Theory
 
 ## 1. What is a Binary Tree?
 
-A Binary Tree is a non-linear data structure in which each node can have at most two children.
+A **Binary Tree** is a non-linear data structure in which each node can have at most two children.
 
 The two children are called:
 
-1. Left Child
-2. Right Child
+- Left Child
+- Right Child
 
-Example:
+A node can have:
 
-        10
-       /  \
-      20   30
+- No child
+- One child
+- Two children
+
+### Example
+
+          10
+        /    \
+      20      30
+     /  \
+   40   50
 
 Here:
 
-- 10 is the Root.
-- 20 is the Left Child of 10.
-- 30 is the Right Child of 10.
+- `10` is the root.
+- `20` is the left child of `10`.
+- `30` is the right child of `10`.
+- `40` and `50` are children of `20`.
+- `40`, `50`, and `30` are leaf nodes.
 
 ---
 
 ## 2. Structure of a Binary Tree Node
 
-In C, a binary tree node can be represented as:
+A binary tree node contains three main parts:
 
-```c
-struct Node
-{
-    int data;
-    struct Node *left;
-    struct Node *right;
-};
+1. Data
+2. Pointer to the left child
+3. Pointer to the right child
 
-Each node contains:
+### C Structure
 
-Data
-Pointer to the Left Child
-Pointer to the Right Child
-
-Basic representation:
-
-+-------+-------+--------+
-|  Left | Data  | Right  |
-+-------+-------+--------+
-3. Important Terms
-Root
-
-The topmost node of a tree is called the root.
-
-Example:
-
-    10
-   /  \
-  20   30
-
-Here, 10 is the root.
-
-Parent
-
-A node that has one or more children is called a parent node.
+    struct Node
+    {
+        int data;
+        struct Node *left;
+        struct Node *right;
+    };
 
 Here:
 
-10 is the parent of 20.
-10 is the parent of 30.
-Child
+- `data` stores the value.
+- `left` stores the address of the left child.
+- `right` stores the address of the right child.
 
-A node directly connected below another node is called its child.
+---
 
-20 and 30 are children of 10.
+## 3. Important Terms in Binary Tree
 
-Leaf Node
+### Root
 
-A node that has no children is called a leaf node.
-
-Example:
-
-    10
-   /  \
-  20   30
-
-20 and 30 are leaf nodes.
-
-Internal Node
-
-A node that has at least one child is called an internal node.
-
-In the above tree:
-
-10 is an internal node.
-
-Sibling
-
-Nodes having the same parent are called siblings.
-
-20 and 30 are siblings.
-
-4. Basic Binary Tree Structure
+The first or topmost node of a tree is called the **root**.
 
 Example:
 
-    10
-   /  \
-  20   30
- /  \
-40   50
+          10
+
+Here, `10` is the root.
+
+---
+
+### Parent Node
+
+A node that has one or more children is called a **parent node**.
+
+Example:
+
+          10
+        /    \
+      20      30
+
+Here, `10` is the parent of `20` and `30`.
+
+---
+
+### Child Node
+
+A node directly connected below another node is called its **child**.
+
+In the above example:
+
+- `20` is the left child of `10`.
+- `30` is the right child of `10`.
+
+---
+
+### Leaf Node
+
+A node that does not have any child is called a **leaf node**.
+
+Example:
+
+          10
+        /    \
+      20      30
 
 Here:
 
-10 → Root
-20 and 30 → Children of 10
-40 and 50 → Children of 20
-40 and 50 → Leaf Nodes
-20 and 30 → Siblings
-5. Properties of Binary Tree
-Maximum Number of Children
+- `20` is a leaf node.
+- `30` is a leaf node.
 
-Each node can have at most:
+---
 
-2 children
+### Internal Node
 
-These are:
-
-Left Child
-Right Child
-Maximum Nodes at a Level
-
-If the root is considered at level 0:
-
-Maximum Nodes at Level L = 2^L
-
-Examples:
-
-Level 0:
-2^0 = 1
-
-Level 1:
-2^1 = 2
-
-Level 2:
-2^2 = 4
-
-Level 3:
-2^3 = 8
-Maximum Nodes in a Binary Tree
-
-For height h, when the root is at height 0:
-
-Maximum Nodes = 2^(h + 1) - 1
+A node having at least one child is called an **internal node**.
 
 Example:
 
-For height 2:
+          10
+        /
+      20
 
-2^(2 + 1) - 1
-= 8 - 1
-= 7
+Here, `10` is an internal node.
 
-Maximum tree:
+---
 
-       1
-     /   \
-    2     3
-   / \   / \
-  4   5 6   7
-6. Height of Binary Tree
+### Sibling Nodes
 
-The height of a binary tree is the number of edges on the longest path from the root to a leaf.
+Nodes having the same parent are called **siblings**.
 
 Example:
 
-    10
-   /  \
-  20   30
- /
-40
+          10
+        /    \
+      20      30
+
+Here, `20` and `30` are siblings.
+
+---
+
+### Subtree
+
+A tree formed by a node and all of its descendants is called a **subtree**.
+
+Example:
+
+          10
+        /    \
+      20      30
+     /  \
+   40   50
+
+The subtree rooted at `20` is:
+
+        20
+       /  \
+     40    50
+
+---
+
+## 4. Creation of a Binary Tree
+
+A binary tree can be created using dynamically allocated nodes.
+
+Memory can be allocated using:
+
+    malloc()
+
+A new node contains:
+
+- Data
+- Left pointer
+- Right pointer
+
+Initially, the child pointers are generally set to:
+
+    NULL
+
+### Basic Steps
+
+1. Create a new node.
+2. Allocate memory using `malloc()`.
+3. Store data in the node.
+4. Set `left` to `NULL`.
+5. Set `right` to `NULL`.
+6. Connect the node to the required parent.
+
+---
+
+## 5. Example of Binary Tree Creation
+
+Consider:
+
+          10
+        /    \
+      20      30
+
+Here:
+
+- Create node `10`.
+- Create node `20`.
+- Create node `30`.
+- Connect `20` to the left of `10`.
+- Connect `30` to the right of `10`.
+
+The final binary tree is:
+
+          10
+        /    \
+      20      30
+
+---
+
+## 6. Traversal of Binary Tree
+
+Traversal means visiting every node of the tree exactly once.
+
+The main binary tree traversals are:
+
+1. Preorder Traversal
+2. Inorder Traversal
+3. Postorder Traversal
+4. Level Order Traversal
+
+---
+
+# 7. Preorder Traversal
+
+Preorder traversal follows:
+
+    Root → Left → Right
+
+### Example
+
+          10
+        /    \
+      20      30
+     /  \
+   40   50
+
+Preorder traversal:
+
+    10 20 40 50 30
+
+### Steps
+
+1. Visit the root.
+2. Traverse the left subtree.
+3. Traverse the right subtree.
+
+### Algorithm
+
+    Preorder(root)
+
+    1. If root is NULL, return.
+    2. Visit root.
+    3. Preorder(root->left).
+    4. Preorder(root->right).
+
+---
+
+# 8. Inorder Traversal
+
+Inorder traversal follows:
+
+    Left → Root → Right
+
+### Example
+
+          10
+        /    \
+      20      30
+     /  \
+   40   50
+
+Inorder traversal:
+
+    40 20 50 10 30
+
+### Steps
+
+1. Traverse the left subtree.
+2. Visit the root.
+3. Traverse the right subtree.
+
+### Algorithm
+
+    Inorder(root)
+
+    1. If root is NULL, return.
+    2. Inorder(root->left).
+    3. Visit root.
+    4. Inorder(root->right).
+
+---
+
+# 9. Postorder Traversal
+
+Postorder traversal follows:
+
+    Left → Right → Root
+
+### Example
+
+          10
+        /    \
+      20      30
+     /  \
+   40   50
+
+Postorder traversal:
+
+    40 50 20 30 10
+
+### Steps
+
+1. Traverse the left subtree.
+2. Traverse the right subtree.
+3. Visit the root.
+
+### Algorithm
+
+    Postorder(root)
+
+    1. If root is NULL, return.
+    2. Postorder(root->left).
+    3. Postorder(root->right).
+    4. Visit root.
+
+---
+
+# 10. Level Order Traversal
+
+Level Order Traversal visits nodes level by level.
+
+It generally uses a **Queue**.
+
+### Example
+
+          10
+        /    \
+      20      30
+     /  \    /  \
+   40   50  60   70
+
+Level Order:
+
+    10 20 30 40 50 60 70
+
+### Steps
+
+1. Insert the root into the queue.
+2. Remove one node from the queue.
+3. Visit that node.
+4. Insert its left child into the queue.
+5. Insert its right child into the queue.
+6. Continue until the queue becomes empty.
+
+---
+
+## 11. Difference Between DFS and BFS
+
+Tree traversals can be broadly divided into:
+
+### Depth First Search (DFS)
+
+DFS explores deeper nodes first.
+
+The following are DFS traversals:
+
+- Preorder
+- Inorder
+- Postorder
+
+DFS generally uses recursion or a stack.
+
+### Breadth First Search (BFS)
+
+BFS visits nodes level by level.
+
+In a binary tree:
+
+- Level Order Traversal is BFS.
+
+BFS generally uses a queue.
+
+---
+
+# 12. Counting Total Nodes
+
+The total number of nodes can be counted recursively.
+
+For every node:
+
+    Total Nodes =
+    1 + Nodes in Left Subtree + Nodes in Right Subtree
+
+### Example
+
+          10
+        /    \
+      20      30
+
+Total nodes:
+
+    3
+
+### Recursive Idea
+
+    count(root)
+
+    If root is NULL:
+        return 0
+
+    return 1 + count(root->left) + count(root->right)
+
+---
+
+# 13. Counting Leaf Nodes
+
+A leaf node is a node with:
+
+    left == NULL
+    right == NULL
+
+### Example
+
+          10
+        /    \
+      20      30
+     /  \
+   40   50
+
+Leaf nodes:
+
+    40, 50, 30
+
+Total leaf nodes:
+
+    3
+
+### Recursive Idea
+
+    countLeaf(root)
+
+    If root is NULL:
+        return 0
+
+    If root has no children:
+        return 1
+
+    return countLeaf(root->left)
+           + countLeaf(root->right)
+
+---
+
+# 14. Height of Binary Tree
+
+The height of a binary tree represents the longest path from the root to a leaf.
+
+For example:
+
+          10
+        /    \
+      20      30
+     /
+   40
 
 The longest path is:
 
-10 → 20 → 40
+    10 → 20 → 40
 
-Therefore:
+If height is counted using edges:
 
-Height = 2
-7. Depth of a Node
+    Height = 2
+
+If height is counted using nodes:
+
+    Height = 3
+
+### Important Point
+
+Different textbooks may define height differently, so always check the convention being used.
+
+---
+
+# 15. Depth of a Node
 
 The depth of a node is the number of edges from the root to that node.
 
 Example:
 
-    10
-   /  \
-  20   30
- /
-40
+          10
+        /    \
+      20      30
+     /
+   40
 
-Depth:
+Depth of:
 
-10 → 0
-20 → 1
-30 → 1
-40 → 2
-8. Binary Tree Traversals
+- `10` = 0
+- `20` = 1
+- `30` = 1
+- `40` = 2
 
-Traversal means visiting every node of a tree exactly once.
+---
 
-The four major binary tree traversals are:
+# 16. Level of a Node
 
-Preorder Traversal
-Inorder Traversal
-Postorder Traversal
-Level Order Traversal
-9. Preorder Traversal
+The level of a node represents its position from the root.
 
-Preorder follows:
+Depending on the convention:
 
-Root → Left → Right
+- Root may be considered Level 0.
+- Or root may be considered Level 1.
 
-Shortcut:
+Therefore, the convention should be specified in exams or implementations.
 
-NLR
+---
 
-where:
+# 17. Properties of Binary Tree
 
-N = Node
-L = Left
-R = Right
+Some important properties of a binary tree are:
 
-Example:
+### Property 1
 
-    10
-   /  \
-  20   30
+Every node can have at most:
 
-Preorder:
+    2 children
 
-10 20 30
-Algorithm
-Start from the root.
-Visit and print the root node.
-Recursively traverse the left subtree.
-Recursively traverse the right subtree.
-Stop when the current node becomes NULL.
-Time Complexity
-O(n)
-Space Complexity
-O(h)
+### Property 2
 
-Where h is the height of the tree.
+The maximum number of nodes at level `l`, when root is at level 0, is:
 
-10. Inorder Traversal
+    2^l
 
-Inorder follows:
+### Property 3
 
-Left → Root → Right
+The maximum number of nodes in a binary tree of height `h`, when height is counted in edges, is:
 
-Shortcut:
+    2^(h + 1) - 1
 
-LNR
+### Property 4
 
-Example:
+A binary tree with `n` nodes has:
 
-    10
-   /  \
-  20   30
+    n - 1
 
-Inorder:
+edges, provided the tree is non-empty.
 
-20 10 30
-Algorithm
-Start from the root.
-Recursively traverse the left subtree.
-Visit and print the root node.
-Recursively traverse the right subtree.
-Stop when the current node becomes NULL.
-Time Complexity
-O(n)
-Space Complexity
-O(h)
+### Property 5
 
-Where h is the height of the tree.
+Every node except the root has exactly one parent.
 
-11. Postorder Traversal
+---
 
-Postorder follows:
-
-Left → Right → Root
-
-Shortcut:
-
-LRN
-
-Example:
-
-    10
-   /  \
-  20   30
-
-Postorder:
-
-20 30 10
-Algorithm
-Start from the root.
-Recursively traverse the left subtree.
-Recursively traverse the right subtree.
-Visit and print the root node.
-Stop when the current node becomes NULL.
-Time Complexity
-O(n)
-Space Complexity
-O(h)
-
-Where h is the height of the tree.
-
-12. Level Order Traversal
-
-Level Order Traversal visits nodes level by level.
-
-It uses a queue.
-
-Example:
-
-    10
-   /  \
-  20   30
- / \
-40  50
-
-Level Order:
-
-10 20 30 40 50
-Algorithm
-Create an empty queue.
-Insert the root into the queue.
-Remove a node from the front of the queue.
-Visit and print the node.
-Insert its left child into the queue if it exists.
-Insert its right child into the queue if it exists.
-Repeat until the queue becomes empty.
-Time Complexity
-O(n)
-Space Complexity
-O(n)
-13. Comparison of Tree Traversals
-Traversal	Order	Commonly Used Structure
-Preorder	Root → Left → Right	Recursion / Stack
-Inorder	Left → Root → Right	Recursion / Stack
-Postorder	Left → Right → Root	Recursion / Stack
-Level Order	Level by Level	Queue
-14. Counting Nodes
-
-Counting nodes means finding the total number of nodes present in a binary tree.
-
-For every non-NULL node:
-
-Total Nodes =
-1 + Left Subtree Nodes + Right Subtree Nodes
-
-Example:
-
-    10
-   /  \
-  20   30
-
-Total Nodes:
-
-3
-Algorithm
-Start from the root.
-If the root is NULL, return 0.
-Count the current node as 1.
-Recursively count nodes in the left subtree.
-Recursively count nodes in the right subtree.
-Add all results.
-Return the total count.
-Time Complexity
-O(n)
-Space Complexity
-O(h)
-
-Where h is the height of the tree.
-
-15. Counting Leaf Nodes
-
-A leaf node is a node that has no children.
-
-Condition:
-
-left == NULL
-AND
-right == NULL
-
-Example:
-
-    10
-   /  \
-  20   30
-
-Leaf Nodes:
-
-20
-30
-
-Number of Leaf Nodes:
-
-2
-Algorithm
-Start from the root.
-If the root is NULL, return 0.
-Check whether the current node has no left and right child.
-If it is a leaf node, return 1.
-Otherwise, recursively count leaf nodes in the left subtree.
-Recursively count leaf nodes in the right subtree.
-Add both results.
-Return the total count.
-Time Complexity
-O(n)
-Space Complexity
-O(h)
-
-Where h is the height of the tree.
-
-16. Creating a Binary Tree
-
-Binary tree nodes can be dynamically created using malloc() in C.
-
-Example:
-
-struct Node *newNode;
-
-newNode = (struct Node *)malloc(sizeof(struct Node));
-
-newNode->data = 10;
-newNode->left = NULL;
-newNode->right = NULL;
-
-The left and right pointers are initially set to NULL.
-
-17. Types of Binary Trees
+# 18. Types of Binary Trees
 
 Important types of binary trees include:
 
-Full Binary Tree
-Complete Binary Tree
-Perfect Binary Tree
-Balanced Binary Tree
-Skewed Binary Tree
-18. Full Binary Tree
+1. Full Binary Tree
+2. Complete Binary Tree
+3. Perfect Binary Tree
+4. Balanced Binary Tree
+5. Skewed Binary Tree
 
-A Full Binary Tree is a binary tree in which every node has either:
+---
 
-0 children
-2 children
+# 19. Full Binary Tree
 
-Example:
+A **Full Binary Tree** is a binary tree in which every node has either:
 
-    1
-   / \
-  2   3
- / \
-4   5
+- 0 children
+- 2 children
 
-Every node has either 0 or 2 children.
-
-19. Complete Binary Tree
-
-A Complete Binary Tree is a binary tree in which:
-
-All levels except possibly the last are completely filled.
-The last level is filled from left to right.
+A node cannot have exactly one child.
 
 Example:
 
-    1
-   / \
-  2   3
- / \  /
-4  5 6
-
-This is a complete binary tree.
-
-20. Perfect Binary Tree
-
-A Perfect Binary Tree is a binary tree in which:
+          10
+        /    \
+      20      30
+     /  \
+   40   50
 
 Every internal node has exactly two children.
-All leaf nodes are at the same level.
+
+Therefore, it is a full binary tree.
+
+---
+
+# 20. Complete Binary Tree
+
+A **Complete Binary Tree** is a binary tree in which:
+
+- All levels except possibly the last are completely filled.
+- The last level is filled from left to right.
 
 Example:
 
-    1
-   / \
-  2   3
- / \ / \
-4  5 6  7
-21. Balanced Binary Tree
+          10
+        /    \
+      20      30
+     /  \    /
+   40   50  60
+
+The last level is filled from left to right.
+
+Therefore, this is a complete binary tree.
+
+Complete binary trees are important in:
+
+- Heap
+- Priority Queue
+
+---
+
+# 21. Perfect Binary Tree
+
+A **Perfect Binary Tree** is a binary tree in which:
+
+- Every internal node has exactly two children.
+- All leaf nodes are at the same level.
+
+Example:
+
+          10
+        /    \
+      20      30
+     /  \    /  \
+   40   50  60   70
+
+All levels are completely filled.
+
+---
+
+# 22. Balanced Binary Tree
 
 A balanced binary tree is a tree where the heights of the left and right subtrees are kept relatively balanced.
 
-Balanced trees generally provide better performance for searching and other operations.
+Balanced trees help maintain efficient operations.
 
-An AVL Tree is an important example of a self-balancing Binary Search Tree.
+Examples of balanced tree structures include:
 
-22. Skewed Binary Tree
+- AVL Tree
+- Red-Black Tree
 
-A skewed binary tree is a tree where nodes mostly exist on one side.
+---
 
-Left-Skewed Tree
-    10
+# 23. Skewed Binary Tree
+
+A skewed binary tree is a tree in which most nodes have only one child.
+
+### Left-Skewed Tree
+
+        10
+       /
+     20
     /
-   20
-   /
   30
-  /
- 40
-Right-Skewed Tree
-10
-  \
-   20
-     \
-      30
-        \
-         40
+ /
+40
 
-A skewed binary tree can behave similarly to a linked list.
+### Right-Skewed Tree
 
-23. Binary Tree vs Binary Search Tree
+    10
+      \
+       20
+         \
+          30
+            \
+             40
 
-A Binary Tree does not have any specific ordering rule for its values.
+A skewed tree behaves similarly to a linked list.
 
-A Binary Search Tree follows:
+---
 
-Left Subtree < Root < Right Subtree
+# 24. Binary Tree vs Binary Search Tree
 
-Example of a BST:
+A Binary Search Tree is a special type of binary tree.
 
-    50
-   /  \
-  30   70
- / \   / \
-20 40 60 80
+| Binary Tree | Binary Search Tree |
+|---|---|
+| Each node has at most two children | Each node has at most two children |
+| No ordering rule is required | Follows an ordering rule |
+| Left child can contain any value | Left values are smaller |
+| Right child can contain any value | Right values are greater |
+| Searching may be slower | Searching can be faster |
+| Inorder is not necessarily sorted | Inorder gives sorted order |
 
-Every Binary Search Tree is a Binary Tree, but every Binary Tree is not a Binary Search Tree.
+### BST Rule
 
-24. Advantages of Binary Trees
-Represents hierarchical data naturally.
-Dynamic memory allocation is possible.
-Provides different traversal techniques.
-Forms the foundation of BSTs, AVL Trees, Heaps, and other tree structures.
-Useful for representing hierarchical relationships.
-Can be used for efficient searching when properly structured.
-25. Disadvantages of Binary Trees
-Requires additional memory for pointers.
-Traversal is more complicated than simple arrays.
-An unbalanced tree can become inefficient.
-Dynamic memory management is required in C.
-Maintaining balanced structures may require additional operations.
-26. Applications of Binary Trees
+    Left Subtree < Root < Right Subtree
 
-Binary Trees are used in:
+---
 
-Searching
-Sorting
-Expression Evaluation
-Expression Trees
-Compiler Design
-File Systems
-Hierarchical Data
-Binary Search Trees
-AVL Trees
-Heaps
-Decision Trees
-Database indexing concepts
-27. Time Complexity
+# 25. Binary Tree Traversal Example
 
-For a binary tree containing n nodes:
+Consider:
 
-Operation	Time Complexity
-Preorder Traversal	O(n)
-Inorder Traversal	O(n)
-Postorder Traversal	O(n)
-Level Order Traversal	O(n)
-Count Nodes	O(n)
-Count Leaf Nodes	O(n)
+          10
+        /    \
+      20      30
+     /  \    /  \
+   40   50  60   70
 
-Every node may need to be visited, so these operations take O(n) time.
+### Preorder
 
-28. Space Complexity
+    10 20 40 50 30 60 70
 
-For recursive tree operations:
+### Inorder
 
-O(h)
+    40 20 50 10 60 30 70
 
-Where:
+### Postorder
 
-h = height of the tree
+    40 50 20 60 70 30 10
+
+### Level Order
+
+    10 20 30 40 50 60 70
+
+---
+
+# 26. Time Complexity of Binary Tree Operations
+
+| Operation | Time Complexity |
+|---|---:|
+| Creation of one node | O(1) |
+| Traversal | O(n) |
+| Searching | O(n) |
+| Counting nodes | O(n) |
+| Counting leaf nodes | O(n) |
+| Finding height | O(n) |
+
+### Why is traversal O(n)?
+
+Because every node must be visited.
+
+If there are `n` nodes:
+
+    Time = O(n)
+
+---
+
+# 27. Space Complexity
+
+The space complexity depends on the implementation.
+
+### Recursive Traversal
+
+Recursive traversal uses the call stack.
 
 For a balanced tree:
 
-h = O(log n)
+    O(log n)
 
-For a completely skewed tree:
+For a skewed tree:
 
-h = O(n)
+    O(n)
 
-Level Order Traversal can require:
+### Level Order Traversal
 
-O(n)
-
-space for the queue in the worst case.
-
-29. Important Formulas
-Maximum Nodes at Level L
-Maximum Nodes = 2^L
-Maximum Nodes for Height h
-Maximum Nodes = 2^(h + 1) - 1
-Minimum Height for n Nodes
-
-Approximately:
-
-log2(n)
-
-For a complete/perfect tree, height is approximately:
-
-floor(log2(n))
-30. Important Exam Points
-A Binary Tree is a non-linear data structure.
-A node can have at most two children.
-The two children are called left and right children.
-The topmost node is called the root.
-A node with no children is called a leaf node.
-Nodes having the same parent are called siblings.
-Preorder = Root → Left → Right.
-Inorder = Left → Root → Right.
-Postorder = Left → Right → Root.
-Level Order visits nodes level by level.
 Level Order uses a queue.
-Recursive traversals use the call stack.
-Maximum nodes at level L = 2^L.
-Maximum nodes for height h = 2^(h+1) - 1.
-A Full Binary Tree has either 0 or 2 children for every node.
-A Complete Binary Tree fills the last level from left to right.
-A Perfect Binary Tree has all internal nodes with two children and all leaves at the same level.
-A skewed tree can behave like a linked list.
-Inorder traversal of a Binary Search Tree produces sorted order.
-Binary Trees form the foundation for BSTs, AVL Trees, and Heaps.
-31. Overall Binary Tree Concept
 
-The basic structure is:
+Its auxiliary space can be:
 
+    O(n)
+
+in the worst case.
+
+---
+
+# 28. Advantages of Binary Tree
+
+1. Represents hierarchical data naturally.
+2. Dynamic size is possible.
+3. Insertion and deletion can be efficient depending on the tree structure.
+4. Useful for implementing other data structures.
+5. Recursive traversal is simple.
+6. Useful for representing hierarchical relationships.
+7. Forms the foundation for BST, Heap, AVL Tree, and other tree structures.
+
+---
+
+# 29. Disadvantages of Binary Tree
+
+1. Requires additional memory for pointers.
+2. Implementation is more complex than arrays.
+3. Searching in a general binary tree can require O(n) time.
+4. Recursive operations use stack memory.
+5. An unbalanced tree can become inefficient for some operations.
+
+---
+
+# 30. Applications of Binary Tree
+
+Binary trees are used in:
+
+- Expression trees
+- Searching structures
+- File systems
+- Hierarchical data
+- Compiler design
+- Decision trees
+- Game development
+- Artificial intelligence
+- Database systems
+- Heaps
+- Binary Search Trees
+- AVL Trees
+- Red-Black Trees
+
+---
+
+# 31. Binary Tree and Recursion
+
+Binary trees are commonly processed using recursion because every node can have two subtrees.
+
+For example:
+
+    root
+    ├── left subtree
+    └── right subtree
+
+A recursive function can process:
+
+1. Current node
+2. Left subtree
+3. Right subtree
+
+This is why preorder, inorder, postorder, counting nodes, and calculating height are commonly implemented recursively.
+
+---
+
+# 32. Important Exam Points
+
+### Point 1
+
+A binary tree allows at most:
+
+    2 children per node
+
+### Point 2
+
+The three main DFS traversals are:
+
+    Preorder
+    Inorder
+    Postorder
+
+### Point 3
+
+Preorder:
+
+    Root → Left → Right
+
+### Point 4
+
+Inorder:
+
+    Left → Root → Right
+
+### Point 5
+
+Postorder:
+
+    Left → Right → Root
+
+### Point 6
+
+Level Order:
+
+    Level by Level
+
+### Point 7
+
+Level Order traversal generally uses:
+
+    Queue
+
+### Point 8
+
+DFS can use:
+
+    Recursion or Stack
+
+### Point 9
+
+A leaf node has:
+
+    No children
+
+### Point 10
+
+A full binary tree allows each node to have:
+
+    0 or 2 children
+
+### Point 11
+
+A complete binary tree fills the last level:
+
+    From left to right
+
+### Point 12
+
+A perfect binary tree has:
+
+    All internal nodes with 2 children
+    All leaves at the same level
+
+### Point 13
+
+A skewed binary tree behaves similarly to:
+
+    Linked List
+
+### Point 14
+
+Traversal of a binary tree takes:
+
+    O(n)
+
+time.
+
+---
+
+# 33. Binary Tree Operation Summary
+
+| Operation | Main Idea |
+|---|---|
+| Creation | Create nodes and connect them |
+| Traversal | Visit all nodes |
+| Preorder | Root → Left → Right |
+| Inorder | Left → Root → Right |
+| Postorder | Left → Right → Root |
+| Level Order | Level by level |
+| Count Nodes | Count every node |
+| Count Leaf Nodes | Count nodes having no children |
+| Height | Find longest path from root |
+| Searching | Check nodes until value is found |
+
+---
+
+# 34. Overall Concept
+
+A Binary Tree is a hierarchical, non-linear data structure in which every node can have at most two children.
+
+The two children are:
+
+    Left Child
+    Right Child
+
+The most important operations are:
+
+1. Creation
+2. Traversal
+3. Searching
+4. Counting Nodes
+5. Counting Leaf Nodes
+6. Finding Height
+
+The most important traversal orders are:
+
+    Preorder  = Root → Left → Right
+
+    Inorder   = Left → Root → Right
+
+    Postorder = Left → Right → Root
+
+    Level Order = Level by Level
+
+Binary Trees are the foundation for many advanced data structures such as:
+
+- Binary Search Trees
+- Heaps
+- AVL Trees
+- Red-Black Trees
+- Expression Trees
+
+---
+
+# 35. Conclusion
+
+A **Binary Tree** is one of the fundamental non-linear data structures in computer science.
+
+Each node can have at most two children, called the left child and right child.
+
+Understanding binary trees is important because many advanced tree-based data structures are built on the same concepts.
+
+The most important concepts to remember are:
+
+    Binary Tree
     Root
-   /    \
-Left    Right
-/  \    /  \
+    Parent
+    Child
+    Leaf
+    Subtree
+    Traversal
+    Preorder
+    Inorder
+    Postorder
+    Level Order
+    Height
+    Full Binary Tree
+    Complete Binary Tree
+    Perfect Binary Tree
+    Balanced Binary Tree
+    Skewed Binary Tree
 
-... ... ... ...
-
-The major operations are:
-
-Creation
-   ↓
-Traversal
-   ↓
-Counting
-   ↓
-Processing
-   ↓
-Advanced Tree Structures
-
-The four important traversal orders are:
-
-Preorder
-Root → Left → Right
-
-Inorder
-Left → Root → Right
-
-Postorder
-Left → Right → Root
-
-Level Order
-Level by Level
-Conclusion
-
-A Binary Tree is one of the most important non-linear data structures.
-
-It allows data to be represented hierarchically and provides the foundation for many advanced tree-based data structures.
-
-The four major traversal techniques are:
-
-Preorder
-Inorder
-Postorder
-Level Order
-
-Understanding Binary Tree creation, traversal, node counting, leaf-node counting, and tree properties is essential before moving to:
-
-Binary Search Trees
-Threaded Binary Trees
-AVL Trees
-Heaps
-
-Therefore, the Binary Tree is a fundamental building block for understanding advanced tree data structures.
-
-
-**This is the format I'll use for every future `.md` file: one complete block, rea
+Once these concepts are clear, learning **Binary Search Trees, Heaps, AVL Trees, and other advanced tree structures** becomes much easier.
